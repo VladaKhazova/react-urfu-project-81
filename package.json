@@ -4,8 +4,11 @@
   "description": "[![hexlet-check](https://github.com/VladaKhazova/react-urfu-project-81/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/VladaKhazova/react-urfu-project-81/actions)",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc"
+    "test": "vitest run",
+    "build": "tsc",
+    "test-coverage": "vitest run --coverage",
+    "lint": "oxlint src __tests__ vitest.config.ts && oxfmt --check src __tests__ vitest.config.ts",
+    "format": "oxfmt src __tests__ vitest.config.ts"
   },
   "repository": {
     "type": "git",
@@ -18,7 +21,11 @@
   },
   "homepage": "https://github.com/VladaKhazova/react-urfu-project-81#readme",
   "devDependencies": {
-    "typescript": "^7.0.2"
+    "@vitest/coverage-v8": "^5.1.1",
+    "oxfmt": "^0.79.0",
+    "oxlint": "^1.94.0",
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.1"
   },
   "type": "module",
   "exports": "./dist/index.js",
