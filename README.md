@@ -35,6 +35,21 @@ cd react-urfu-project-81
 
 </details>
 
+После установки зависимостей соберите пакет командой `npm run build`.
+
+```js
+import HexletCode from "@hexlet/code";
+
+const template = { name: "rob", job: "hexlet" };
+
+const form = HexletCode.formFor(template, { url: "/users" }, (f) => {
+  f.input("name", { class: "user-input" });
+  f.input("job", { as: "textarea", rows: 5 });
+});
+
+console.log(form);
+```
+
 ## О Хекслете
 
 [Хекслет](https://ru.hexlet.io/) — школа программирования: авторские программы обучения с практикой, поддержкой наставников и реальными проектами, которые остаются в резюме. Этот репозиторий — один из таких проектов.

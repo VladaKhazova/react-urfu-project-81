@@ -1,16 +1,13 @@
-import Tag from "./components/tag.js";
+import FormBuilder, { type FormOptions } from "./builders/form-builder.js";
 
 export default class HexletCode {
   static formFor(
-    _template: object,
-    options: { url?: string },
-    buildForm: (form: object) => void,
+    template: object,
+    options: FormOptions,
+    buildForm: (form: Pick<FormBuilder, "input">) => void,
   ): string {
-    buildForm({});
-
-    return new Tag("form", {
-      action: options.url ?? "#",
-      method: "post",
-    }).toString();
+    const builder = new FormBuilder(template);
+    buildForm(builder);
+    return builder.build(options);
   }
 }
