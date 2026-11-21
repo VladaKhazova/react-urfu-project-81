@@ -1,0 +1,26 @@
+{
+  "name": "@hexlet/code",
+  "version": "1.0.0",
+  "description": "[![hexlet-check](https://github.com/VladaKhazova/react-urfu-project-81/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/VladaKhazova/react-urfu-project-81/actions)",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VladaKhazova/react-urfu-project-81.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VladaKhazova/react-urfu-project-81/issues"
+  },
+  "homepage": "https://github.com/VladaKhazova/react-urfu-project-81#readme",
+  "devDependencies": {
+    "typescript": "^7.0.2"
+  },
+  "type": "module",
+  "exports": "./dist/index.js",
+  "types": "./dist/index.d.ts"
+}
