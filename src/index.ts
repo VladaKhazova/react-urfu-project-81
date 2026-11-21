@@ -4,7 +4,7 @@ export default class HexletCode {
   static formFor(
     template: object,
     options: FormOptions,
-    buildForm: (form: Pick<FormBuilder, "input">) => void,
+    buildForm: (form: Pick<FormBuilder, "input" | "submit">) => void,
   ): string {
     const builder = new FormBuilder(template);
     buildForm(builder);

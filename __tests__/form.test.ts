@@ -23,7 +23,9 @@ test("input and textarea", () => {
 
   expect(html).toBe(
     formStart +
+      '<label for="name">Name</label>' +
       '<input name="name" type="text" value="rob">' +
+      '<label for="job">Job</label>' +
       '<textarea cols="20" rows="40" name="job">hexlet</textarea></form>',
   );
 });
@@ -36,7 +38,9 @@ test("input attributes", () => {
 
   expect(html).toBe(
     formStart +
+      '<label for="name">Name</label>' +
       '<input name="name" type="text" value="rob" class="user-input">' +
+      '<label for="job">Job</label>' +
       '<input name="job" type="text" value="hexlet"></form>',
   );
 });
@@ -47,12 +51,34 @@ test("textarea size", () => {
   );
 
   expect(html).toBe(
-    formStart + '<textarea cols="50" rows="50" name="job">hexlet</textarea></form>',
+    formStart +
+      '<label for="job">Job</label>' +
+      '<textarea cols="50" rows="50" name="job">hexlet</textarea></form>',
   );
 });
 
 test("unknown field", () => {
   expect(() => HexletCode.formFor(template, {}, (f) => f.input("age"))).toThrow(
     new Error("Field 'age' not exist in template"),
+  );
+});
+
+test("submit", () => {
+  const html = HexletCode.formFor(template, {}, (f) => f.submit());
+
+  expect(html).toBe(formStart + '<input type="submit" value="Save"></form>');
+});
+
+test("submit with text", () => {
+  const html = HexletCode.formFor(template, {}, (f) => {
+    f.input("name");
+    f.submit("Wow");
+  });
+
+  expect(html).toBe(
+    formStart +
+      '<label for="name">Name</label>' +
+      '<input name="name" type="text" value="rob">' +
+      '<input type="submit" value="Wow"></form>',
   );
 });

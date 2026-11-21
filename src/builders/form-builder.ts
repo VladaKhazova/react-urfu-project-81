@@ -21,16 +21,26 @@ export default class FormBuilder {
 
     const value = String((this.template as Record<string, unknown>)[name]);
     const { as, ...attributes } = options;
+    const caption = name.charAt(0).toUpperCase() + name.slice(1);
+    const label = new Tag(
+      "label",
+      { for: name },
+      caption.replaceAll("&", "&amp;").replaceAll("<", "&lt;"),
+    );
 
     if (as === "textarea") {
       const text = value.replaceAll("&", "&amp;").replaceAll("<", "&lt;");
       const field = new Tag("textarea", { cols: 20, rows: 40, name, ...attributes }, text);
-      this.fields.push(field);
+      this.fields.push(label, field);
       return;
     }
 
     const field = new Tag("input", { name, type: "text", value, ...attributes });
-    this.fields.push(field);
+    this.fields.push(label, field);
+  }
+
+  submit(value = "Save"): void {
+    this.fields.push(new Tag("input", { type: "submit", value }));
   }
 
   build(options: FormOptions): string {
