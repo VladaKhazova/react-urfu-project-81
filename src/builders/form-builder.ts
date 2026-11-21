@@ -5,8 +5,13 @@ export type FormOptions = {
   method?: string;
 };
 
-type InputOptions = Record<string, string | number> & {
+type HtmlAttributes = Record<string, string | number>;
+
+type InputOptions = {
+  [key: string]: string | number | HtmlAttributes | undefined;
   as?: "input" | "textarea";
+  label?: string;
+  labelHtml?: HtmlAttributes;
 };
 
 export default class FormBuilder {
@@ -20,11 +25,19 @@ export default class FormBuilder {
     }
 
     const value = String((this.template as Record<string, unknown>)[name]);
-    const { as, ...attributes } = options;
-    const caption = name.charAt(0).toUpperCase() + name.slice(1);
+    const { as, label: labelText, labelHtml, ...inputHtml } = options;
+
+    const attributes = Object.fromEntries(
+      Object.entries(inputHtml).filter(
+        (entry): entry is [string, string | number] =>
+          typeof entry[1] === "string" || typeof entry[1] === "number",
+      ),
+    );
+
+    const caption = labelText ?? name.charAt(0).toUpperCase() + name.slice(1);
     const label = new Tag(
       "label",
-      { for: name },
+      { for: name, ...labelHtml },
       caption.replaceAll("&", "&amp;").replaceAll("<", "&lt;"),
     );
 
@@ -48,7 +61,7 @@ export default class FormBuilder {
 
     return new Tag(
       "form",
-      { action: options.url ?? "#", method: options.method ?? "post" },
+      { method: options.method ?? "post", action: options.url ?? "#" },
       content,
     ).toString();
   }

@@ -5,15 +5,15 @@ const template = { name: "rob", job: "hexlet", gender: "m" };
 
 test("empty form", () => {
   const html = HexletCode.formFor(template, {}, () => {});
-  expect(html).toBe('<form action="#" method="post"></form>');
+  expect(html).toBe('<form method="post" action="#"></form>');
 });
 
 test("form with url", () => {
   const html = HexletCode.formFor(template, { url: "/users" }, () => {});
-  expect(html).toBe('<form action="/users" method="post"></form>');
+  expect(html).toBe('<form method="post" action="/users"></form>');
 });
 
-const formStart = '<form action="#" method="post">';
+const formStart = '<form method="post" action="#">';
 
 test("input and textarea", () => {
   const html = HexletCode.formFor(template, { method: "post" }, (f) => {
@@ -80,5 +80,22 @@ test("submit with text", () => {
       '<label for="name">Name</label>' +
       '<input name="name" type="text" value="rob">' +
       '<input type="submit" value="Wow"></form>',
+  );
+});
+
+test("custom label", () => {
+  const html = HexletCode.formFor(template, {}, (f) => {
+    f.input("name", {
+      label: "User",
+      labelHtml: { class: "form-label", id: "name-label" },
+    });
+    f.submit("Ok");
+  });
+
+  expect(html).toBe(
+    formStart +
+      '<label for="name" class="form-label" id="name-label">User</label>' +
+      '<input name="name" type="text" value="rob">' +
+      '<input type="submit" value="Ok"></form>',
   );
 });
